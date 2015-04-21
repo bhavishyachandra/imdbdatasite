@@ -7,7 +7,7 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="Content/bootstrap.min.css" />
     <!-- Optional theme -->
-    <link rel="stylesheet" href="Content/lavish-bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="Content/lavish-bootstrap.min.css" />
 
     <!-- jQuery library -->
     <script src="Scripts/jquery.min.js"></script>
@@ -16,6 +16,10 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <title></title>
 
+<%--    <style type="text/css">
+   body { background: #DFEFF7; }
+</style>--%>
+
 </head>
 <body>
 
@@ -23,23 +27,24 @@
 
         <div>
             <div class="container">
-                <div class="row clearfix">
-                    <div class="col-md-12 column">
-                        &nbsp;<br />
-                        <br />
-                        <br />
-                        <br />
-                        <img src="Images/imdb_thumbnail.jpg" class="img-circle" /><div class="page-header">
-                            <div class="bs-docs-header">
+<%--                <div class="row clearfix">
+                    <div class="col-md-12 column">--%>
+                        <ol style="visibility:hidden;"><li>&nbsp</li><li>&nbsp</li><li>&nbsp</li></ol>
+                        <img src="Images/imdb_thumbnail.jpg" class="img-circle" />
+                        <div class="page-header">
+                            
+                                <div class="container">
                                 <h1>IMDB Using MongoDB
                                 </h1>
+                                </div>
                             </div>
-                        </div>
+                        
                         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                             </div>
 
+                            
                             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                                 <ul class="nav navbar-nav">
                                     <li class="active">
@@ -101,6 +106,7 @@
                         <asp:Button ID="MoviesInRange20132015" runat="server" OnClick="MoviesInRange20132015_Click" Text="Movies From 2013 to 2015" class="btn btn-info" />
                         <asp:Button ID="TopRatedMovies" runat="server" Text="Top Rated Movies" OnClick="TopRatedMovies_Click" class="btn btn-info" />
                         <asp:Button ID="MoviesOf2013" runat="server" OnClick="MoviesOf2013_Click" Text="Movies of 2013" class="btn btn-info" />
+                        <asp:Button ID="Button_MoviesPerYear" runat="server" Text="Movies Per Year" CssClass="btn btn-info" OnClick="Button_MoviesPerYear_Click" />
                         <br />
                         <br />
                         <p class="text-primary">
@@ -125,9 +131,9 @@
                         </asp:GridView>
                     </div>
                 </div>
-            </div>
+            <%--</div>
 
-        </div>
+        </div>--%>
         <div>
             <footer class="footer">
 

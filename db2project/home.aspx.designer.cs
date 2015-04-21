@@ -49,6 +49,15 @@ namespace db2project {
         protected global::System.Web.UI.WebControls.Button MoviesOf2013;
         
         /// <summary>
+        /// Button_MoviesPerYear control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_MoviesPerYear;
+        
+        /// <summary>
         /// TextBox_From control.
         /// </summary>
         /// <remarks>
