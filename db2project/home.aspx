@@ -127,7 +127,7 @@
 
                         <br />
 
-                        &nbsp;<asp:GridView ID="ResultGridView" runat="server" class="table table-hover table-bordered">
+                        &nbsp;<asp:GridView ID="ResultGridView" runat="server" class="table table-hover table-bordered table-striped">
                         </asp:GridView>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
             <footer class="footer">
 
                 <div class="navbar-fixed-bottom">
-                    <a class="navbar-brand navbar-right" rel="home" href="http://www.mongodb.org" title="MongoDB">
+                    <a class="navbar-brand navbar-right" rel="home" href="http://www.mongodb.org" title="MongoDB" target="_blank">
                         <img style="max-width: 100px; margin-top: -7px;" src="Images/poweredbymongodb.png" />
                     </a>
                 </div>

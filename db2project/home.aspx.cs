@@ -130,8 +130,8 @@ namespace db2project
             int year1 = Convert.ToInt32(TextBox_From.Text.ToString());
             int year2 = Convert.ToInt32(TextBox_To.Text.ToString());
 
-            var client = new MongoClient(ConfigurationManager.AppSettings["connectionString"]);
-            var server = client.GetServer();
+            MongoClient client = new MongoClient(ConfigurationManager.AppSettings["connectionString"]);
+            MongoServer server = client.GetServer();
 
 
             MongoDatabase db = server.GetDatabase("imdb");
@@ -165,20 +165,17 @@ namespace db2project
 
             MongoDatabase db = server.GetDatabase("imdb");
             MongoCollection<BsonDocument> collection = db.GetCollection<BsonDocument>("movies1");
-
-            String string1 = @"function() {if(this.type=='(MOVIE)'){ emit(this.year, 1); }}";
+            var query = Query.EQ("type", "(MOVIE)");
+            String string1 = @"function() { emit(this.year, 1); }";
             String string2 = @"function(key, values) { var total = 0; for(var i = 0; i < values.length; i++) { total += values[i]; } return total;}";
             BsonJavaScript map = new BsonJavaScript(string1);
             BsonJavaScript reduce = new BsonJavaScript(string2);
 
 
-            //var options = new MapReduceOptionsBuilder();
-            //options.SetFinalize(finalize);
-            //options.SetOutput(MapReduceOutput.Inline);
             MapReduceArgs args = new MapReduceArgs();
             args.MapFunction = map;
-            
             args.ReduceFunction = reduce;
+            args.Query = query;
             //args.OutputMode = MapReduceOutputMode.Inline;
             
             args.OutputCollectionName = "movies_count";
@@ -198,14 +195,16 @@ namespace db2project
 
 
             DataTable dt = new DataTable();
-            dt.Columns.Add("_id");
-            dt.Columns.Add("value");
+            dt.Columns.Add("Year");
+            dt.Columns.Add("Movies");
 
             foreach (var i in cursor)
             {
                 dt.Rows.Add(i["_id"], i["value"]);
                 
             }
+
+
 
             ResultGridView.DataSource = dt;
             ResultGridView.DataBind();
