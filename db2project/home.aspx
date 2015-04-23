@@ -7,16 +7,66 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="Content/bootstrap.min.css" />
 
     <!-- Optional theme -->
     <%--<link rel="stylesheet" href="~/Content/bootstrap-theme.min.css" />--%>
 
     <!-- jQuery library -->
-    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="Scripts/jquery-2.1.3.min.js" type="text/javascript"></script>
 
     <!-- Latest compiled JavaScript -->
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/bootstrap.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="Content/themes/base/all.css" />
+    <script src="Scripts/jquery-ui-1.11.4.min.js" type="text/javascript"></script>
+    	
+
+
+         <script type="text/javascript">
+             $(function () {
+                 var availableTags = [
+                 "Documentary",
+                 "Horror",
+                 "Reality-TV",
+                 "Short",
+                 "Comedy",
+                 "Drama",
+                 "Talk-Show",
+                 "Mystery",
+                 "Sport",
+                 "News",
+                 "Sci-Fi",
+                 "Romance",
+                 "Family",
+                 "Biography",
+                 "Music",
+                 "Game-Show",
+                 "Adventure",
+                 "Crime",
+                 "War",
+                 "Musical",
+                 "Animation",
+                 "Fantasy",
+                 "Thriller",
+                 "Action",
+                 "History",
+                 "Western",
+                 "Adult",
+                 "Lifestyle",
+                 "Film-Noir",
+                 "Experimental",
+                 "Commercial",
+                 "Erotica"
+                 ];
+
+                 $("#<%= autocomplete1.ClientID %>").autocomplete({
+                     source: availableTags
+                 });
+             });
+  </script>  
+
+
+
 
     <title></title>
 
@@ -107,9 +157,7 @@
                             </div>
 
                         </nav>
-                        <asp:Button ID="MoviesInRange20132015" runat="server" OnClick="MoviesInRange20132015_Click" Text="Movies From 2013 to 2015" class="btn btn-info" />
                         <asp:Button ID="TopRatedMovies" runat="server" Text="Top Rated Movies" OnClick="TopRatedMovies_Click" class="btn btn-info" />
-                        <asp:Button ID="MoviesOf2013" runat="server" OnClick="MoviesOf2013_Click" Text="Movies of 2013" class="btn btn-info" />
                         <asp:Button ID="Button_MoviesPerYear" runat="server" Text="Movies Per Year" CssClass="btn btn-info" OnClick="Button_MoviesPerYear_Click" />
                         <br />
                         <br />
@@ -127,29 +175,24 @@
 &nbsp;in each genre
                             <asp:Button ID="Button_genre_mapreduce" class="btn-info" runat="server" Text="Find" ValidationGroup="ValidateMe2" OnClick="Button_genre_mapreduce_Click" />
                         </p>
+                <p class="text-primary">Select a genre to see its trend in last 30 years <asp:TextBox id="autocomplete1" runat="server" placeholder="Genre name"/>&nbsp;
+                    <asp:Button ID="Button_genre_selection" runat="server" class="btn-info" OnClick="Button_genre_selection_Click" Text="Find" />
+                </p>
+                <p class="text-primary">Enter actor name
+                    <asp:TextBox ID="TextBox_actor_search" runat="server"></asp:TextBox>
+&nbsp;<asp:Button ID="Button_actor_search" runat="server" Text="Search" class="btn-info" OnClick="Button_actor_search_Click" />
+                </p>
+                <p class="text-primary">Enter movie name
+                    <asp:TextBox ID="TextBox_movies_search" runat="server"></asp:TextBox>
+&nbsp;<asp:Button ID="Button_movies_search" runat="server" Text="Find" CssClass="btn-info" OnClick="Button_movies_search_Click" />
+                </p>
+                    
+		
+	                
+
                         
-                        <%--jquery timer--%>                        <%--<script src="Scripts/jquery.progressTimer.js"></script> 
-                        <div id="progressTimer">
-                        <script type="text/javascript">
-                            $("#progressTimer").progressTimer({
-                          timeLimit: 30,
-                          warningThreshold: 10,
-                          baseStyle: 'progress-bar-warning',
-                          warningStyle: 'progress-bar-danger',
-                          completeStyle: 'progress-bar-info',
-                          onFinish: function() {
-                            console.log("I'm done");
-                                }
-                                });    
-                           </script>
-                            </div>
-                        <script>
-                            $("#startProgressTimer").click(function () {
-                                $("#progressTimer").progressTimer({
-                                    timeLimit: $("#restTime").val()
-                                });
-                            });
-                        </script>--%>
+
+
 
 
                         <asp:Label ID="Label_Result" runat="server" Text=""></asp:Label>
@@ -166,6 +209,18 @@
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" Display="Dynamic" ErrorMessage="Enter years properly" ForeColor="Red" ValidationGroup="ValidateMe2" ControlToValidate="TextBox_genre"></asp:RequiredFieldValidator>
                         
                         <br />
+                <asp:Chart ID="Chart2" runat="server" Height="600px" Width="1000px">
+                    <Series>
+                        <asp:Series ChartType="Line" Name="Series2" YValuesPerPoint="2">
+                        </asp:Series>
+                    </Series>
+                    <ChartAreas>
+                        <asp:ChartArea Name="ChartArea2">
+                        </asp:ChartArea>
+                    </ChartAreas>
+                </asp:Chart>
+                        
+                        <br />
                 <asp:Chart ID="Chart1"  runat="server" Height="600px" OnLoad="Chart1_Load" Width="600px">
                     <Series>
                         <asp:Series Name="Series1"></asp:Series>
@@ -174,7 +229,7 @@
                         <asp:ChartArea Name="ChartArea1"></asp:ChartArea>
                     </ChartAreas>
                 </asp:Chart>
-                        &nbsp;<asp:GridView ID="ResultGridView" runat="server" class="table table-hover table-bordered table-striped">
+                        &nbsp;<asp:GridView ID="ResultGridView" runat="server" class="table table-hover table-bordered table-striped" OnSelectedIndexChanged="ResultGridView_SelectedIndexChanged">
                         </asp:GridView>
                     </div>
                 </div>
