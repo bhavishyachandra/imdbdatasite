@@ -109,6 +109,8 @@ namespace db2project
 
             ResultGridView.DataSource = dt;
             ResultGridView.DataBind();
+            TextBox_From.Text = "";
+            TextBox_To.Text = "";
 
         }
 
@@ -143,7 +145,7 @@ namespace db2project
             MongoCursor<BsonDocument> cursor = output_collection.FindAll().SetSortOrder(SortBy.Descending("value"));
 
             watch.Stop();
-            Label_time.Text = "Mapreduce completed in" + (watch.ElapsedMilliseconds / 1000);
+            Label_time.Text = "Mapreduce completed in " + (watch.ElapsedMilliseconds / 1000)+" seconds";
 
             cursor.SetFields(Fields.Include("_id", "value"));
 
@@ -257,6 +259,7 @@ namespace db2project
             ResultGridView.DataSource = dt;
             ResultGridView.DataBind();
 
+            TextBox_genre.Text = "";
         }
 
         protected void TextBox_genre_TextChanged(object sender, EventArgs e)
@@ -339,6 +342,7 @@ namespace db2project
 
             ResultGridView.DataSource = dt;
             ResultGridView.DataBind();
+            autocomplete1.Text = "";
         }
 
         protected void Button_actor_search_Click(object sender, EventArgs e)
@@ -387,6 +391,8 @@ namespace db2project
 
            ResultGridView.DataSource = dt;
             ResultGridView.DataBind();
+
+            TextBox_actor_search.Text = "";
         }
 
         protected void Button_movies_search_Click(object sender, EventArgs e)
@@ -433,6 +439,8 @@ namespace db2project
 
             ResultGridView.DataSource = dt;
             ResultGridView.DataBind();
+
+            Button_movies_search.Text = "";
 
         }
 
