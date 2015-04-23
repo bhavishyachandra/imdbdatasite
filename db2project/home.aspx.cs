@@ -444,6 +444,78 @@ namespace db2project
 
         }
 
+        protected void Button_oscar_genres_Click(object sender, EventArgs e)
+        {
+
+            var watch = Stopwatch.StartNew();
+            Label_time.Text = "Map Reduce Started....";
+
+            var client = new MongoClient(ConfigurationManager.AppSettings["connectionString"]);
+
+            var server = client.GetServer();
+
+            MongoDatabase db = server.GetDatabase("imdb");
+            MongoCollection<BsonDocument> collection_genre = db.GetCollection<BsonDocument>("oscargenres");
+            
+
+            String string1_genre_oscars = @"function() { emit(this.actor+'_'+this.genre,1); };";
+            String string2_genre_oscars = @"function(key, values) { var total = 0; for(var i = 0; i < values.length; i++) { total += values[i]; } return total; };";
+            BsonJavaScript map_genre = new BsonJavaScript(string1_genre_oscars);
+            BsonJavaScript reduce_genre = new BsonJavaScript(string2_genre_oscars);
+
+
+            MapReduceArgs args1 = new MapReduceArgs();
+            args1.MapFunction = map_genre;
+            args1.ReduceFunction = reduce_genre;
+            args1.OutputDatabaseName = "imdb";
+            args1.OutputCollectionName = "oscargenres_count";
+            args1.OutputMode = MapReduceOutputMode.Replace;
+
+
+            MapReduceResult result_genre = collection_genre.MapReduce(args1);
+            MongoCollection<BsonDocument> output_collection_genre = db.GetCollection<BsonDocument>("oscargenres_count");
+            MongoCursor<BsonDocument> cursor_genre = output_collection_genre.FindAll();
+
+            watch.Stop();
+            Label_time.Text = "Mapreduce completed in " + (watch.ElapsedMilliseconds / 1000) + " seconds";
+
+            cursor_genre.SetFields(Fields.Include("_id", "value"));
+
+
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("name");
+            dt.Columns.Add("genre");
+            dt.Columns.Add("value");
+
+            foreach (var i in cursor_genre)
+            {
+                String[] oscargenres = i["_id"].ToString().Split('_');
+
+                dt.Rows.Add(oscargenres[0],oscargenres[1], i["value"]);
+
+            }
+
+            //Chart1.DataSource = dt;
+            //Chart1.Series["Series1"].ChartType = SeriesChartType.Bar;
+            //Chart1.Series["Series1"].XValueMember = "_id";
+            //Chart1.Series["Series1"].YValueMembers = "value";
+
+            //Chart1.DataBind();
+
+            //Chart1.Series["Series1"].Sort(PointSortOrder.Ascending, "Y");
+            //Chart1.ChartAreas["ChartArea1"].AxisX.LabelStyle.Interval = 1;
+            //Chart1.Visible = true;
+
+
+
+            ResultGridView.DataSource = dt;
+            ResultGridView.DataBind();
+
+            
+
+        }
+
 
     }
 }

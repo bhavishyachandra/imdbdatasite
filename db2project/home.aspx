@@ -88,7 +88,7 @@
                         <div class="page-header">
                             
                                 <div class="container">
-                                <h1>IMDB Using MongoDB
+                                <h1>Data Analytics in IMDB
                                 </h1>
                                 </div>
                             </div>
@@ -116,6 +116,7 @@
                         </nav>
                         <asp:Button ID="TopRatedMovies" runat="server" Text="Top Rated Movies" OnClick="TopRatedMovies_Click" class="btn btn-info" />
                         <asp:Button ID="Button_MoviesPerYear" runat="server" Text="Movies Per Year" CssClass="btn btn-info" OnClick="Button_MoviesPerYear_Click" />
+                        <asp:Button ID="Button_oscar_genres" runat="server" Text="Top genres in Oscars" CssClass="btn btn-info" OnClick="Button_oscar_genres_Click" />
                         <br />
                         <br />
                         <p class="text-primary">

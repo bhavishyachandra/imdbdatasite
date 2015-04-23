@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="WebForm1.aspx" />
+    <None Include="Properties\PublishProfiles\home.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
